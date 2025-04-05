@@ -27,7 +27,7 @@ browserEvents.E.onEvent(browserEvents.KeyEvent.Pressed, function () {
             inventory = sprites.create(assets.image`inventory`, SpriteKind.popup)
             inventory.changeScale(2, ScaleAnchor.Middle)
             inventory_open = 1
-            pauseUntil(() => browserEvents.Tab.isPressed())
+            pauseUntil(() => controller.A.isPressed())
         }
         if (inventory_open == 1) {
             inventory_open = 0
@@ -628,12 +628,6 @@ forever(function () {
     controller.moveSprite(mySprite)
 })
 forever(function () {
-    if (inventory_open == 1) {
-        inventory.setPosition(mySprite.x, mySprite.y)
-        inventory.setStayInScreen(true)
-    }
-})
-forever(function () {
     if (!(piggy.overlapsWith(mySprite))) {
         press_Z.setImage(img`
             . . . . . . . . . . . . . . . . 
@@ -664,6 +658,12 @@ forever(function () {
             pause(100)
             effects.clearParticles(press_Z)
         }
+    }
+})
+forever(function () {
+    if (inventory_open == 1) {
+        inventory.setPosition(mySprite.x, mySprite.y)
+        inventory.setStayInScreen(true)
     }
 })
 forever(function () {
